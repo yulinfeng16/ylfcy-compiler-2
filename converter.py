@@ -34,12 +34,16 @@ def autodefineconv(code,ln):
     retstr='auto '
     if(checkADC(code)):
         raise NameError('“定义”至少要附加一个变量名和一个值。您是否在找“定义*类型”？（位于第'+str(ln)+"行)")
-    z=code.find('=')
+    z=code.find('为')
     for i in range(2,z):
         retstr+=code[i]
     for i in range(z,len(code)):
         if code[i]=='“' or code[i]=='”':
             retstr+='"'
+        elif code[i]=='‘' or code[i]=='’':
+            retstr+='\''
+        elif code[i]=='为':
+            retstr+='='
         else:
             retstr+=code[i]
     retstr+=';'
