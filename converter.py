@@ -1,7 +1,7 @@
 #-*-coding:gbk-*-
 import sys
 if __name__=="__main__":
-    cpp_buffer=['由YLFCY COMPILER转换！','#include<iostream>','#include<cmath>','#include<ctime>','#include<string>','#include<cstring>','#include<algorithm>','#include<vector>','#include<queue>','using namespace std;']
+    cpp_buffer=['//由YLFCY COMPILER转换！','#include<iostream>','#include<cmath>','#include<ctime>','#include<string>','#include<cstring>','#include<algorithm>','#include<vector>','#include<queue>','using namespace std;']
     #头文件和初始化
     cpiurl="default_in.txt"
     if len(sys.argv)>1:
@@ -16,7 +16,7 @@ if __name__=="__main__":
         #以下为分析文件内容并转换为C++代码
         
     print("读取成功！")
-    with open ('out.cpp','w') as file_object2:
+    with open ('out.cpp','w',encoding='ANSI') as file_object2:
         for line in cpp_buffer:
             file_object2.write(line+'\n')#将转换好的代码写入文件
     print('写入完毕！')

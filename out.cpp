@@ -1,4 +1,4 @@
-由YLFCY COMPILER转换！
+//由YLFCY COMPILER转换！
 #include<iostream>
 #include<cmath>
 #include<ctime>
