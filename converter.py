@@ -11,10 +11,10 @@ def coutconv(code_stream,j):
     i=2
     while i<len(code_stream):
         #print(code_stream[i])
-        if code_stream[i]=='“':
+        if code_stream[i]=='“' or code_stream[i]=='”':
             cout_str+='"'
-        elif code_stream[i]=='”':
-            cout_str+='"'
+        elif code_stream[i]=='‘' or code_stream[i]=='’':
+            cout_str+='\''
         elif code_stream[i]=='换' and code_stream[i+1]=='行':
             cout_str+='endl'
             i+=1
@@ -25,6 +25,25 @@ def coutconv(code_stream,j):
         i+=1
     cout_str+=';'
     return cout_str
+def checkADC(code):
+    for i in range(3,len(code)-1):#保证有且最后不是“=”
+        if code[i]=='为':
+            return False
+    return True
+def autodefineconv(code,ln):
+    retstr='auto '
+    if(checkADC(code)):
+        raise NameError('“定义”至少要附加一个变量名和一个值。您是否在找“定义*类型”？（位于第'+str(ln)+"行)")
+    z=code.find('=')
+    for i in range(2,z):
+        retstr+=code[i]
+    for i in range(z,len(code)):
+        if code[i]=='“' or code[i]=='”':
+            retstr+='"'
+        else:
+            retstr+=code[i]
+    retstr+=';'
+    return retstr
 if __name__=="__main__":
     cpp_buffer=['//由YLFCY COMPILER转换！','#include<iostream>','#include<cmath>','#include<ctime>','#include<string>','#include<cstring>','#include<algorithm>','#include<vector>','#include<queue>','using namespace std;','int main(){']
     #头文件和初始化
@@ -51,6 +70,8 @@ if __name__=="__main__":
                 pass
             elif re.match("输出",code_string)!=None:
                 out_buffer=coutconv(code_string,summ)
+            elif re.match("定义",code_string)!=None:
+                out_buffer=autodefineconv(code_string,summ)
             else:
                 raise SyntaxError("未知指令(第"+str(summ)+"行)")
             if flag:
