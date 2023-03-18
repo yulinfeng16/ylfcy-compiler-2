@@ -7,4 +7,7 @@ if __name__=="__main__":
     print("接收到："+cpiurl)
     with open (cpiurl) as file_object:
         lines=file_object.readlines()
-    print(lines)
+    for line in lines:
+        code_string=line.rstrip()
+        print(code_string)
+        
