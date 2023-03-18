@@ -1,3 +1,4 @@
+ÓÉYLFCY COMPILER×ª»»£¡
 #include<iostream>
 #include<cmath>
 #include<ctime>

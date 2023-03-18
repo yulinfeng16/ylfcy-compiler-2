@@ -1,21 +1,22 @@
-#-*-coding:UTF-8-*-
+#-*-coding:gbk-*-
 import sys
 if __name__=="__main__":
-    cpp_buffer=['#include<iostream>','#include<cmath>','#include<ctime>','#include<string>','#include<cstring>','#include<algorithm>','#include<vector>','#include<queue>','using namespace std;']
-    #å¤´æ–‡ä»¶å’Œåˆå§‹åŒ–
+    cpp_buffer=['ÓÉYLFCY COMPILER×ª»»£¡','#include<iostream>','#include<cmath>','#include<ctime>','#include<string>','#include<cstring>','#include<algorithm>','#include<vector>','#include<queue>','using namespace std;']
+    #Í·ÎÄ¼şºÍ³õÊ¼»¯
     cpiurl="default_in.txt"
     if len(sys.argv)>1:
         cpiurl=sys.argv[1]
-    print("æ¥æ”¶åˆ°ï¼š"+cpiurl)
-    with open (cpiurl) as file_object:
-        lines=file_object.readlines()#è¯»å–æ–‡ä»¶å†…å®¹
-    code_string=''#åˆå§‹åŒ–
+    print("½ÓÊÕµ½£º"+cpiurl)
+    with open (cpiurl,encoding='UTF8') as file_object:
+        lines=file_object.readlines()#¶ÁÈ¡ÎÄ¼şÄÚÈİ
+    code_string=''#³õÊ¼»¯
     for line in lines:
         code_string=line.rstrip()
-        #ä»¥ä¸‹ä¸ºåˆ†ææ–‡ä»¶å†…å®¹å¹¶è½¬æ¢ä¸ºC++ä»£ç 
+        print(code_string)
+        #ÒÔÏÂÎª·ÖÎöÎÄ¼şÄÚÈİ²¢×ª»»ÎªC++´úÂë
         
-    print("è¯»å–æˆåŠŸï¼")
+    print("¶ÁÈ¡³É¹¦£¡")
     with open ('out.cpp','w') as file_object2:
         for line in cpp_buffer:
-            file_object2.write(line+'\n')#å°†è½¬æ¢å¥½çš„ä»£ç å†™å…¥æ–‡ä»¶
-    print('å†™å…¥å®Œæ¯•ï¼')
+            file_object2.write(line+'\n')#½«×ª»»ºÃµÄ´úÂëĞ´ÈëÎÄ¼ş
+    print('Ğ´ÈëÍê±Ï£¡')
