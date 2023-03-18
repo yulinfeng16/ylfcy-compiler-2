@@ -6,10 +6,10 @@ def coutconv(code_stream,j):
     if code_stream[len(code_stream)-1]=='“' or code_stream[len(code_stream)-1]=='，' or code_stream[len(code_stream)-1]=='换':
         raise ValueError('错误的行结尾:'+code_stream[len(code_stream)-1]+'(位于第'+str(j)+'行第'+str(len(code_stream))+'个字符)')
     if len(code_stream)<3:
-        raise NameError("“输出”至少要附加一个内容")
+        raise NameError("“输出”至少要附加一个内容(位于第"+j+"行)")
     i=2
     while i<len(code_stream):
-        print(code_stream[i])
+        #print(code_stream[i])
         if code_stream[i]=='“':
             cout_str+='"'
         elif code_stream[i]=='”':
@@ -35,15 +35,22 @@ if __name__=="__main__":
         lines=file_object.readlines()#读取文件内容
     code_string=''
     out_buffer=''#初始化
-    sum=0
+    summ=0
+    flag=False
     for line in lines:
-        sum+=1
+        flag=True
+        summ+=1
         code_string=line.rstrip()
         print(code_string)
         #以下为分析文件内容并转换为C++代码
-        if re.match("输出",code_string)!=None:
-            out_buffer=coutconv(code_string,sum)
-        cpp_buffer.append(str(out_buffer))
+        if len(code_string)==0:
+            pass
+        elif re.match("输出",code_string)!=None:
+            out_buffer=coutconv(code_string,summ)
+        else:
+            raise SyntaxError("未知指令(第"+str(summ)+"行)")
+        if flag:
+            cpp_buffer.append(str(out_buffer))
     cpp_buffer.append('return 0;}')
     print("读取成功！")
     with open ('out.cpp','w',encoding='ANSI') as file_object2:
