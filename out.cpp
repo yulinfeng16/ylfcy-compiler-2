@@ -8,10 +8,6 @@
 #include<vector>
 #include<queue>
 using namespace std;
-c
-o
-u
-t
-<
-<
-;
+int main(){
+cout<<a<<endl;
+return 0;}
