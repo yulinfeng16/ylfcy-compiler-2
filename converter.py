@@ -1,6 +1,7 @@
 #-*-coding:gbk-*-
 import sys
 import re
+from tqdm import tqdm
 def coutconv(code_stream,j):
     cout_str='cout<<'
     if code_stream[len(code_stream)-1]=='“' or code_stream[len(code_stream)-1]=='，' or code_stream[len(code_stream)-1]=='换':
@@ -37,22 +38,26 @@ if __name__=="__main__":
     out_buffer=''#初始化
     summ=0
     flag=False
-    for line in lines:
-        flag=True
-        summ+=1
-        code_string=line.rstrip()
-        print(code_string)
-        #以下为分析文件内容并转换为C++代码
-        if len(code_string)==0:
-            pass
-        elif re.match("输出",code_string)!=None:
-            out_buffer=coutconv(code_string,summ)
-        else:
-            raise SyntaxError("未知指令(第"+str(summ)+"行)")
-        if flag:
-            cpp_buffer.append(str(out_buffer))
+    print(len(lines))
+    with tqdm(total=len(lines)) as pbar:
+        for line in lines:
+            flag=True
+            summ+=1
+            pbar.set_description('正在转换')
+            code_string=line.rstrip()
+            #print(code_string)
+            #以下为分析文件内容并转换为C++代码
+            if len(code_string)==0:
+                pass
+            elif re.match("输出",code_string)!=None:
+                out_buffer=coutconv(code_string,summ)
+            else:
+                raise SyntaxError("未知指令(第"+str(summ)+"行)")
+            if flag:
+                cpp_buffer.append(str(out_buffer))
+            pbar.update(1)
     cpp_buffer.append('return 0;}')
-    print("读取成功！")
+    print("转换成功！")
     with open ('out.cpp','w',encoding='ANSI') as file_object2:
         for line in cpp_buffer:
             file_object2.write(line+'\n')#将转换好的代码写入文件
