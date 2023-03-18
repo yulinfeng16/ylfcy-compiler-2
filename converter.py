@@ -6,7 +6,7 @@ def coutconv(code_stream,j):
     if code_stream[len(code_stream)-1]=='“' or code_stream[len(code_stream)-1]=='，' or code_stream[len(code_stream)-1]=='换':
         raise ValueError('错误的行结尾:'+code_stream[len(code_stream)-1]+'(位于第'+str(j)+'行第'+str(len(code_stream))+'个字符)')
     if len(code_stream)<3:
-        raise NameError("“输出”至少要附加一个内容(位于第"+j+"行)")
+        raise NameError("“输出”至少要附加一个内容(位于第"+str(j)+"行)")
     i=2
     while i<len(code_stream):
         #print(code_stream[i])
