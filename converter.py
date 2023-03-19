@@ -49,6 +49,12 @@ def autodefineconv(code,ln):
             retstr+=code[i]
     retstr+=';'
     return retstr
+def retconv(code):
+    retstr='return '
+    for i in range(2,len(code)):
+        retstr+=code[i]
+    retstr+=';'
+    return retstr
 if __name__=="__main__":
     print("辅助模块自检返回："+str(examplemod()))
     cpp_buffer=['//由YLFCY COMPILER转换！','#include<iostream>','#include<cmath>','#include<ctime>','#include<string>','#include<cstring>','#include<algorithm>','#include<vector>','#include<queue>','using namespace std;','int main(){']
@@ -80,6 +86,8 @@ if __name__=="__main__":
                 out_buffer=autodefineconv(code_string,summ)
             elif re.match("定义",code_string)!=None and checkCDC(cutstring(code_string,0,int(code_string.find('为'))))==0:
                 out_buffer=customdefineconv(code_string,summ)
+            elif re.match("返回",code_string)!=None:
+                out_buffer=retconv(code_string)
             else:
                 raise SyntaxError("未知指令(第"+str(summ)+"行)")
             if flag:

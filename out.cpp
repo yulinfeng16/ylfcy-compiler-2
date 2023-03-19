@@ -13,4 +13,5 @@ cout<<a<<endl;
 cout<<'b'<<endl;
 auto a=b;
 float a=b;
+return 0;
 }
