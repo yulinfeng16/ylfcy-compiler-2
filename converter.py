@@ -2,13 +2,13 @@
 import sys
 import re
 from tqdm import tqdm
-from addmodule01 import examplemod
+from addmodule01 import examplemod,customdefineconv,checkCDC,cutstring
 def coutconv(code_stream,j):
     cout_str='cout<<'
-    if code_stream[len(code_stream)-1]=='“' or code_stream[len(code_stream)-1]=='，' or code_stream[len(code_stream)-1]=='换':
+    if code_stream[len(code_stream)-1]=='“' or code_stream[len(code_stream)-1]=='，':
         raise ValueError('错误的行结尾:'+code_stream[len(code_stream)-1]+'(位于第'+str(j)+'行第'+str(len(code_stream))+'个字符)')
     if len(code_stream)<3:
-        raise NameError("“输出”至少要附加一个内容(位于第"+str(j)+"行)")
+        raise SyntaxError("“输出”至少要附加一个内容(位于第"+str(j)+"行)")
     i=2
     while i<len(code_stream):
         #print(code_stream[i])
@@ -27,14 +27,14 @@ def coutconv(code_stream,j):
     cout_str+=';'
     return cout_str
 def checkADC(code):
-    for i in range(3,len(code)-1):#保证有且最后不是“=”
+    for i in range(3,len(code)-1):#保证有且最后不是“为”
         if code[i]=='为':
             return False
     return True
 def autodefineconv(code,ln):
     retstr='auto '
     if(checkADC(code)):
-        raise NameError('“定义”至少要附加一个变量名和一个值。您是否在找“定义*类型”？（位于第'+str(ln)+"行)")
+        raise SyntaxError('“定义”至少要附加一个变量名和一个值。您是否在找“定义*类型”？（位于第'+str(ln)+"行)")
     z=code.find('为')
     for i in range(2,z):
         retstr+=code[i]
@@ -76,8 +76,10 @@ if __name__=="__main__":
                 pass
             elif re.match("输出",code_string)!=None:
                 out_buffer=coutconv(code_string,summ)
-            elif re.match("定义",code_string)!=None:
+            elif re.match("定义",code_string)!=None and checkCDC(cutstring(code_string,0,int(code_string.find('为'))))==-1:
                 out_buffer=autodefineconv(code_string,summ)
+            elif re.match("定义",code_string)!=None and checkCDC(cutstring(code_string,0,int(code_string.find('为'))))==0:
+                out_buffer=customdefineconv(code_string,summ)
             else:
                 raise SyntaxError("未知指令(第"+str(summ)+"行)")
             if flag:
