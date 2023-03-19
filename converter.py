@@ -2,6 +2,7 @@
 import sys
 import re
 from tqdm import tqdm
+from addmodule01 import examplemod
 def coutconv(code_stream,j):
     cout_str='cout<<'
     if code_stream[len(code_stream)-1]=='“' or code_stream[len(code_stream)-1]=='，' or code_stream[len(code_stream)-1]=='换':
@@ -49,6 +50,7 @@ def autodefineconv(code,ln):
     retstr+=';'
     return retstr
 if __name__=="__main__":
+    print("辅助模块自检返回："+str(examplemod()))
     cpp_buffer=['//由YLFCY COMPILER转换！','#include<iostream>','#include<cmath>','#include<ctime>','#include<string>','#include<cstring>','#include<algorithm>','#include<vector>','#include<queue>','using namespace std;','int main(){']
     #头文件和初始化
     cpiurl="default_in.txt"
