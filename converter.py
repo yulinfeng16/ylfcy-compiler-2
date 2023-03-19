@@ -85,7 +85,7 @@ if __name__=="__main__":
             if flag:
                 cpp_buffer.append(str(out_buffer))
             pbar.update(1)
-    cpp_buffer.append('return 0;}')
+    cpp_buffer.append('}')
     print("×ª»»³É¹¦£¡")
     with open ('out.cpp','w',encoding='ANSI') as file_object2:
         for line in cpp_buffer:
