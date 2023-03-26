@@ -52,7 +52,14 @@ def autodefineconv(code,ln):
 def retconv(code):
     retstr='return '
     for i in range(2,len(code)):
-        retstr+=code[i]
+        if code[i]=='¡°' or code[i]=='¡±':
+            retstr+='"'
+        elif code[i]=='¡®' or code[i]=='¡¯':
+            retstr+='\''
+        elif code[i]=='Îª':
+            retstr+='='
+        else:
+            retstr+=code[i]
     retstr+=';'
     return retstr
 if __name__=="__main__":
