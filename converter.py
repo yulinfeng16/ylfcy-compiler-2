@@ -2,7 +2,7 @@
 import sys
 import re
 from tqdm import tqdm
-from addmodule01 import examplemod,customdefineconv,checkCDC,cutstring
+from modules.libext.addmodule01 import examplemod,customdefineconv,checkCDC,cutstring
 def coutconv(code_stream,j):
     cout_str='cout<<'
     if code_stream[len(code_stream)-1]=='¡°' or code_stream[len(code_stream)-1]=='£¬':
