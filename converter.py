@@ -87,6 +87,8 @@ if __name__=="__main__":
             #以下为分析文件内容并转换为C++代码
             if len(code_string)==0:
                 pass
+            elif code_string=="{" or code_string=="}":
+                out_buffer=code_string;
             elif re.match("输出",code_string)!=None:
                 out_buffer=coutconv(code_string,summ)
             elif re.match("定义",code_string)!=None and checkCDC(cutstring(code_string,0,int(code_string.find('为'))))==-1:
@@ -96,6 +98,7 @@ if __name__=="__main__":
             elif re.match("返回",code_string)!=None:
                 out_buffer=retconv(code_string)
             else:
+                print(code_string,"<-")
                 raise SyntaxError("未知指令(第"+str(summ)+"行)")
             if flag:
                 cpp_buffer.append(str(out_buffer))
