@@ -133,6 +133,8 @@ if __name__=="__main__":
                 out_buffer=whiconv(code_string)
             elif re.match("修改",code_string)!=None:
                 out_buffer=convert000(code_string,summ)
+            elif code_string=="暂停":
+                out_buffer="system(\"pause\");"
             else:
                 print(code_string,"<-")
                 raise SyntaxError("未知指令(第"+str(summ)+"行)")
