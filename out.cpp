@@ -9,9 +9,6 @@
 #include<queue>
 using namespace std;
 int main(){
-cout<<a<<endl;
-cout<<'b'<<endl;
-auto a=b;
-float a=b;
+while(1==1)
 return 0;
 }

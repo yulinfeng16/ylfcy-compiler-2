@@ -3,6 +3,7 @@ import sys
 import re
 from tqdm import tqdm
 from modules.libext.addmodule01 import examplemod,customdefineconv,checkCDC,cutstring
+from modules.libext.stringcz01 import reversed_string
 def coutconv(code_stream,j):
     cout_str='cout<<'
     if code_stream[len(code_stream)-1]=='“' or code_stream[len(code_stream)-1]=='，':
@@ -62,6 +63,19 @@ def retconv(code):
             retstr+=code[i]
     retstr+=';'
     return retstr
+def whiconv(code):
+    retstr='while('
+    for i in range(4,len(code)-3):
+        if code[i]=='“' or code[i]=='”':
+            retstr+='"'
+        elif code[i]=='‘' or code[i]=='’':
+            retstr+='\''
+        elif code[i]=='为':
+            retstr+='='
+        else:
+            retstr+=code[i]
+    retstr+=')'
+    return retstr
 if __name__=="__main__":
     print("辅助模块自检返回："+str(examplemod()))
     cpp_buffer=['//由YLFCY COMPILER转换！','#include<iostream>','#include<cmath>','#include<ctime>','#include<string>','#include<cstring>','#include<algorithm>','#include<vector>','#include<queue>','using namespace std;','int main(){']
@@ -97,6 +111,8 @@ if __name__=="__main__":
                 out_buffer=customdefineconv(code_string,summ)
             elif re.match("返回",code_string)!=None:
                 out_buffer=retconv(code_string)
+            elif re.match("循环直到",code_string) and re.match("立成不",reversed_string(code_string)):
+                out_buffer=whiconv(code_string)
             else:
                 print(code_string,"<-")
                 raise SyntaxError("未知指令(第"+str(summ)+"行)")
