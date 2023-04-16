@@ -1,0 +1,12 @@
+{
+
+"name":"扩展管理器",
+"main":"index.html",
+"window":{
+"width":1200,
+"height":500,"min_width": 1200
+,"min_height": 500,"toolbar": false,"max_width": 1200
+,"max_height": 500
+,"icon":"icon.png"
+}
+}
