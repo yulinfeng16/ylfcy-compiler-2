@@ -76,6 +76,24 @@ def whiconv(code):
             retstr+=code[i]
     retstr+=')'
     return retstr
+def convert000(code,ln):
+    retstr=''
+    if(checkADC(code)):
+        raise SyntaxError('“修改”至少要附加一个变量名和一个值。（位于第'+str(ln)+"行)")
+    z=code.find('为')
+    for i in range(2,z):
+        retstr+=code[i]
+    for i in range(z,len(code)):
+        if code[i]=='“' or code[i]=='”':
+            retstr+='"'
+        elif code[i]=='‘' or code[i]=='’':
+            retstr+='\''
+        elif code[i]=='为':
+            retstr+='='
+        else:
+            retstr+=code[i]
+    retstr+=';'
+    return retstr
 if __name__=="__main__":
     print("辅助模块自检返回："+str(examplemod()))
     cpp_buffer=['//由YLFCY COMPILER转换！','#include<iostream>','#include<cmath>','#include<ctime>','#include<string>','#include<cstring>','#include<algorithm>','#include<vector>','#include<queue>','using namespace std;','int main(){']
@@ -111,8 +129,10 @@ if __name__=="__main__":
                 out_buffer=customdefineconv(code_string,summ)
             elif re.match("返回",code_string)!=None:
                 out_buffer=retconv(code_string)
-            elif re.match("循环直到",code_string) and re.match("立成不",reversed_string(code_string)):
+            elif re.match("循环直到",code_string)!=None and re.match("立成不",reversed_string(code_string))!=None:
                 out_buffer=whiconv(code_string)
+            elif re.match("修改",code_string)!=None:
+                out_buffer=convert000(code_string,summ)
             else:
                 print(code_string,"<-")
                 raise SyntaxError("未知指令(第"+str(summ)+"行)")

@@ -9,6 +9,11 @@
 #include<queue>
 using namespace std;
 int main(){
-while(1==1)
+int a=0;
+while(a<10)
+{
+cout<<a<<endl;
+a=a+1;
+}
 return 0;
 }
